@@ -1,0 +1,196 @@
+<?php
+/**
+ * Copyright © 2016 Mozg. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+
+<div class="box-right">
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4>Loggi</h4>
+        </div>
+        <fieldset>
+            <div id="order_loggi_block">
+                <div class="order-loggi-form" id="order_loggi_form">
+                    <span class="field-row">
+                    <label for="inquiry" class="normal">ID do orçamento</label>
+                    <input type="text" value="" name="inquiry" id="inquiry" class="input-text">
+                    </span>
+                    <div class="divider"></div>
+                    <span class="field-row">
+                    <div class="f-left">
+                        <button style="" onclick="loggi_coleta()" class="scalable save" type="button" title="" id=""><span><span><span>Solicitar coleta</span></span></span></button>
+                    </div>
+                    <div class="f-right">
+                        <button style="" onclick="loggi_listagem()" class="scalable save" type="button" title="" id=""><span><span><span>Listar coletas</span></span></span></button> 
+                    </div>
+                    </span>
+                    <div class="divider"></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<?php
+
+$url_coleta = Mage::helper('adminhtml')->getUrl('adminhtml/Loggi/coleta/');
+$url_listagem = Mage::helper('adminhtml')->getUrl('adminhtml/Loggi/listagem/');
+
+$url_info = Mage::helper('adminhtml')->getUrl('adminhtml/Loggi/info/');
+$url_status = Mage::helper('adminhtml')->getUrl('adminhtml/Loggi/status/');
+$url_cancelar = Mage::helper('adminhtml')->getUrl('adminhtml/Loggi/cancelar/');
+/*
+echo "<a href='$url_status'>$url_status</a>";
+*/
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+
+    url_coleta = '<?php echo $url_coleta; ?>';
+    url_listagem = '<?php echo $url_listagem; ?>';
+
+    url_info = '<?php echo $url_info; ?>';
+    url_status = '<?php echo $url_status; ?>';
+    url_cancelar = '<?php echo $url_cancelar; ?>';
+
+    function loggi_isValid(){
+
+        console.log(arguments.callee.name);
+
+        fieldValue = $("inquiry").value;
+        console.log(fieldValue);
+
+        if (fieldValue == '') {
+            alert('É necessário informar o id do orçamento.\n\nNo histórico do pedido tem o armazenamento dessa informação\n\nPara obter esse dado, pesquise por "inquiry".');
+            $('inquiry').focus();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    function loggi_http_request(){
+
+        console.log(arguments.callee.name);
+
+        new Ajax.Request( url, {
+            method: 'get',
+            asynchronous: false,
+            parameters: 'inquiry='+$('inquiry').value,
+            onLoading: function(transport) {
+                console.log(arguments.callee.name);
+            },
+            onCreate: function(transport) {
+                console.log(arguments.callee.name);
+            },
+            onComplete: function(transport) {
+                console.log(arguments.callee.name);
+
+                $('ajax-result').innerHTML = '01';
+            }
+        });
+
+    }
+
+    function loggi_coleta(){
+
+        console.log(arguments.callee.name);
+
+        if (!loggi_isValid()) {
+            return false;
+        }
+
+        if (confirm("Confirma a ação para a requisição de coleta!") == true) {
+
+            url = url_coleta + '?inquiry=' + $('inquiry').value;
+
+            console.log(url);
+
+            openPopupsMozg(url, 'WinXilinus', 'Link', 'Loggi', 'loggi');
+
+            //http_request();
+        }
+
+    }
+
+    function loggi_listagem(){
+
+        console.log(arguments.callee.name);
+
+        url = url_listagem;
+
+        console.log(url);
+
+        openPopupsMozg(url, 'WinXilinus', 'Link', 'Loggi', 'loggi');
+
+        //http_request();
+
+    }
+
+    function loggi_info(){
+
+        console.log(arguments.callee.name);
+
+        if (!loggi_isValid()) {
+            return false;
+        }
+
+        url = url_info + '?inquiry=' + $('inquiry').value;
+
+        console.log(url);
+
+        openPopupsMozg(url, 'WinXilinus', 'Link', 'Loggi', 'loggi');
+
+        //http_request();
+
+    }
+
+    function loggi_status(){
+
+        console.log(arguments.callee.name);
+
+        if (!loggi_isValid()) {
+            return false;
+        }
+
+        url = url_status + '?inquiry=' + $('inquiry').value;
+
+        console.log(url);
+
+        openPopupsMozg(url, 'WinXilinus', 'Link', 'Loggi', 'loggi');
+
+        //http_request();
+    }
+
+    function loggi_cancelar(){
+
+        console.log(arguments.callee.name);
+
+        if (!loggi_isValid()) {
+            return false;
+        }
+
+        if (confirm("Confirma a ação de cancelamento!") == true) {
+
+            url = url_cancelar + '?inquiry=' + $('inquiry').value;
+
+            console.log(url);
+
+            openPopupsMozg(url, 'WinXilinus', 'Link', 'Loggi', 'loggi');
+
+            //http_request();
+        }
+
+    }
+
+//]]>
+</script>
+
+<div class="clear"></div>
+
+<?php echo $this->getChildHtml(); ?>
