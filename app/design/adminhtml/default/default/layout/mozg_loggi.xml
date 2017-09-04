@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2016 Mozg. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<layout>
+
+    <adminhtml_sales_order_view>
+        <reference name="order_info">
+            <block type="mozg_loggi/adminhtml_sales_order_view_info" name="mozg_xml_include_loggi_order_info" template="mozg_loggi/sales/order/view/info.phtml" />
+        </reference>
+    </adminhtml_sales_order_view>
+
+</layout>

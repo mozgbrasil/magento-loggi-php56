@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Mozg. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config>
+    <modules>
+        <Mozg_Loggi>
+            <version>1.0.0</version>
+        </Mozg_Loggi>
+    </modules>
+    <global>
+        <models>
+            <mozg_loggi>
+                <class>Mozg_Loggi_Model</class>
+                <resourceModel>mozg_loggi_resource</resourceModel>
+            </mozg_loggi>
+            <mozg_loggi_resource>
+                <class>Mozg_Loggi_Model_Resource</class>
+            </mozg_loggi_resource>
+        </models>
+        <helpers>
+            <mozg_loggi>
+                <class>Mozg_Loggi_Helper</class>
+            </mozg_loggi>
+        </helpers>
+        <blocks>
+            <mozg_loggi>
+                <class>Mozg_Loggi_Block</class>
+            </mozg_loggi>
+        </blocks>
+        <resources>
+            <mozg_loggi_setup>
+                <setup>
+                    <module>Mozg_Loggi</module>
+                    <class>Mozg_Loggi_Model_Resource_Setup</class>
+                </setup>
+            </mozg_loggi_setup>
+        </resources>
+        <template>
+        </template>
+        <events>
+            <!-- mozg -->
+            <sales_order_place_after>
+                <observers>
+                    <sales_mozg_loggi_order_comment>
+                        <class>mozg_loggi/observer_salesOrderPlaceAfter</class>
+                        <method>addShippingDataOrderComment</method>
+                    </sales_mozg_loggi_order_comment>
+                </observers>
+            </sales_order_place_after>
+            <!-- mozg -->
+        </events>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mozg_Loggi after="Mage_Adminhtml">Mozg_Loggi_Adminhtml</Mozg_Loggi>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mozg_Loggi>
+                    <files>
+                        <default>Mozg_Loggi.csv</default>
+                    </files>
+                </Mozg_Loggi>
+            </modules>
+        </translate>
+        <events>
+        </events>
+        <layout>
+            <updates>
+                <mozg_loggi>
+                    <file>mozg_loggi.xml</file>
+                </mozg_loggi>
+            </updates>
+        </layout>
+    </adminhtml>    
+    <frontend>
+        <layout>
+            <updates>
+                <mozg_loggi>
+                    <file>mozg_loggi.xml</file>
+                </mozg_loggi>
+            </updates>
+        </layout>
+        <routers>
+            <mozg_loggi>
+                <use>standard</use>
+                <args>
+                    <module>Mozg_Loggi</module>
+                    <frontName>mozg_loggi</frontName>
+                </args>
+            </mozg_loggi>
+        </routers>
+        <events>
+        </events>
+        <translate>
+            <modules>
+                <Mozg_Loggi>
+                    <files>
+                        <default>Mozg_Loggi.csv</default>
+                    </files>
+                </Mozg_Loggi>
+            </modules>
+        </translate>
+    </frontend>
+    <default>
+        <carriers>
+            <mozg_loggi>
+                <!-- BASE -->
+                <model>Mozg_Loggi_Model_Carrier</model>
+                <active>0</active>
+                <sort_order>840</sort_order>
+                <title>Loggi (powered by MOZG)</title>
+                <allowed_methods>1,2</allowed_methods>
+                <free_method></free_method>
+                <!--<max_package_weight>600</max_package_weight>-->
+                <handling_type>F</handling_type>
+                <!--<handling_action>O</handling_action>-->
+                <handling_fee>0</handling_fee>
+                <showmethod>1</showmethod>
+                <debug>1</debug>
+                <sallowspecific>1</sallowspecific>
+                <specificcountry>BR</specificcountry>
+                <!-- DEFAULT -->
+                <product_attribute_width>ship_width</product_attribute_width>
+                <product_attribute_length>ship_length</product_attribute_length>
+                <product_attribute_height>ship_height</product_attribute_height>
+                <unit_of_measure>KGS</unit_of_measure>
+                <prazo_entrega>1</prazo_entrega>
+                <msgprazo>%s - Em média %d dia(s)</msgprazo>
+                <display_result_error>1</display_result_error>
+                <!-- DEFAULT -->
+                <demo_mode>Y</demo_mode>
+                <account_email_test>mailer@mozg.com.br</account_email_test>
+                <account_api_key_test>95625355c67893da31e1426347aa5a9ef149d797</account_api_key_test>
+            </mozg_loggi>
+        </carriers>
+    </default>
+    <phpunit>
+        <suite>
+            <modules>
+                <Mozg_Loggi/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>
